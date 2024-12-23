@@ -1,0 +1,144 @@
+***********************************************
+# Hadoop Cluster Startup
+Pour démarrer les clusters HDFS et YARN :
+
+## Démarrer les démons HDFS
+- Démarrer le daemon Namenode sur la machine virtuelle du Namenode :
+  hdfs --daemon start namenode
+- Démarrer les daemons DataNode sur les nœuds Datanode :
+  hdfs --daemon start datanode
+
+## Démarrer les démons YARN
+- Démarrer le daemon resourcemanager sur le nœud Namenode :
+  yarn --daemon start resourcemanager
+- Démarrer les daemons nodemanager sur les nœuds Datanode :
+  yarn --daemon start nodemanager
+- Démarrer le serveur JobHistory MapReduce :
+  mapred --daemon start historyserver
+
+***********************************************
+# Zookeeper
+## Configuration
+- Modifier les permissions des fichiers Zookeeper :
+  sudo chown -R master:master /opt/zookeeper/logs
+  sudo chown -R master:master /var/lib/zookeeper
+
+## Démarrer le serveur Zookeeper
+- Démarrer le serveur :
+  /opt/zookeeper/bin/zkServer.sh start
+
+***********************************************
+# Apache Spark
+## Démarrage des services Spark
+- Démarrer le master Spark :
+  $SPARK_HOME/sbin/start-master.sh
+- Démarrer le worker Spark :
+  $SPARK_HOME/sbin/start-worker.sh spark://master:7077
+
+***********************************************
+# Apache Hive
+## Démarrage des services Hive
+- Démarrer les services Hive :
+  hive --service metastore &
+  hive --service hiveserver2 &
+- Connexion à Hive via Beeline :
+  beeline -u jdbc:hive2://localhost:10000/default -n hive -p password
+  hive://localhost:10000/default
+
+***********************************************
+# Apache Superset
+## Configuration initiale
+- Configurer Superset :
+  mkdir -p ~/superset
+  echo "SECRET_KEY = '0000'" > ~/superset/superset_config.py
+  superset db upgrade
+  superset init
+
+## Démarrer Superset
+- Activer l'environnement Superset :
+  source superset_env/bin/activate
+- Démarrer Superset :
+  superset run -p 8088 --with-threads --reload --debugger
+- Supprimer les fichiers existants :
+  rm ~/.superset/superset.db
+  rm -rf ~/.superset/*
+
+***********************************************
+# Environnement Spark
+## Configuration
+- Activer l'environnement Spark :
+  source /home/master/spark_env/bin/activate
+- Désactiver le mode safemode dans HDFS :
+  hdfs dfsadmin -safemode leave
+
+***********************************************
+# HDFS
+## Vérification des fichiers
+- Vérifier la distribution des fichiers :
+  hdfs fsck /user/hive/warehouse/fraude1.csv -files -blocks -locations
+
+***********************************************
+# Hive : Création de table externe
+## Table `fraude`
+- Définir la table externe :
+  CREATE EXTERNAL TABLE fraude (
+      Unnamed_0 INT,
+      trans_date_trans_time STRING,
+      cc_num BIGINT,
+      merchant STRING,
+      category STRING,
+      amt DOUBLE,
+      first STRING,
+      last STRING,
+      gender STRING,
+      street STRING,
+      city STRING,
+      state STRING,
+      zip INT,
+      lat DOUBLE,
+      long DOUBLE,
+      city_pop INT,
+      job STRING,
+      dob STRING,
+      trans_num STRING,
+      unix_time BIGINT,
+      merch_lat DOUBLE,
+      merch_long DOUBLE,
+      is_fraud INT
+  )
+  ROW FORMAT DELIMITED
+  FIELDS TERMINATED BY ',' 
+  LINES TERMINATED BY '\n' 
+  LOCATION '/kafka_ingestion/csv_files'
+  TBLPROPERTIES ("skip.header.line.count"="1");
+
+- Réparer la table après modification :
+  MSCK REPAIR TABLE fraude;
+
+***********************************************
+# Hue
+## Démarrage de Hue
+- Activer l'environnement Hue :
+  source /home/master/hue/build/env/bin/activate
+- Démarrer le serveur Hue :
+  sudo -u master /home/master/hue/build/env/bin/python /home/master/hue/build/env/bin/hue runserver 0.0.0.0:8000
+
+***********************************************
+# HTTPFS (Hadoop)
+## Démarrage
+- Démarrer HTTPFS :
+  $HADOOP_HOME/bin/hdfs --daemon start httpfs
+
+***********************************************
+# Kafka
+## Démarrage des services Kafka
+- Lister les topics Kafka :
+  ./kafka-topics.sh --list --bootstrap-server localhost:9092
+- Démarrer le serveur Kafka :
+  bin/kafka-server-start.sh config/server.properties
+**************************************************
+#Airflow
+source /home/master/spark_env/bin/activate
+airflow dags list
+airflow scheduler
+airflow webserver --port 8081

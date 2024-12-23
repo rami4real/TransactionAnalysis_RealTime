@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+<property>
+<name>yarn.resourcemanager.hostname</name>
+<value>master</value>
+</property>
+<property>
+<name>yarn.nodemanager.local-dirs</name>
+<value>file:/home/master/hdata/yarn/local</value>
+</property>
+<property>
+<name>yarn.nodemanager.log-dirs</name>
+<value>file:/home/master/hdata/yarn/log</value>
+</property>
+<property>
+<name>yarn.log.server.url</name>
+</property>
+<property>
+<name>yarn.nodemanager.aux-services</name>
+<value>mapreduce_shuffle,spark_shuffle</value>
+</property>
+<property>
+<name>yarn.nodemanager.aux-services.mapreduce_shuffle.class</name>
+<value>org.apache.hadoop.mapred.ShuffleHandler,org.apache.spark.network.yarn.YarnShuffleService</value>
+</property>
+<property>
+<name>yarn.nodemanager.disk-health-checker.max-disk-utilization-per-disk-percentage</name>
+<value>100</value>
+</property>
+<property>
+  <name>mapred.jobtracker.taskScheduler</name>
+  <value>org.apache.hadoop.mapred.CapacityTaskScheduler</value>
+</property>
+<property>
+  <name>yarn.resourcemanager.proxyuser.hue.groups</name>
+  <value>*</value> <!-- Ou spécifiez le groupe spécifique -->
+</property>
+<property>
+  <name>yarn.resourcemanager.proxyuser.hue.hosts</name>
+  <value>*</value> <!-- Ou spécifiez les hôtes spécifiques -->
+</property>
+</configuration>

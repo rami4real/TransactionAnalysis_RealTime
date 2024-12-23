@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="configuration.xsl"?>
+<configuration>
+<property>
+<name>fs.default.name</name>
+<value>hdfs://master:9000</value>
+</property>
+<property>
+        <name>dfs.webhdfs.enabled</name>
+        <value>true</value>
+    </property>
+    
+    <property>
+        <name>dfs.webhdfs.address</name>
+        <value>master:50070</value>
+    </property>
+<property>
+    <name>spark.yarn.jars</name>
+    <value>hdfs:///spark/jars/*</value>
+</property>
+<property>
+    <name>hadoop.proxyuser.master.groups</name>
+    <value>*</value>
+  </property>
+  <property>
+    <name>hadoop.proxyuser.master.hosts</name>
+    <value>*</value>
+  </property>
+  <property>
+    <name>hadoop.proxyuser.master.users</name>
+    <value>*</value>
+  </property>
+  <property>
+  <name>hadoop.proxyuser.dr.who.hosts</name>
+  <value>*</value>
+</property>
+<property>
+  <name>hadoop.proxyuser.dr.who.groups</name>
+  <value>*</value>
+</property>
+<property>
+  <name>hadoop.proxyuser.httpfs.hosts</name>
+  <value>*</value>
+</property>
+<property>
+  <name>hadoop.proxyuser.httpfs.groups</name>
+  <value>*</value>
+</property>
+<property>
+  <name>hadoop.http.authentication.type</name>
+  <value>simple</value>
+</property>
+
+<property>
+  <name>hadoop.security.authentication</name>
+  <value>simple</value>
+</property>
+  <property>
+  <name>hadoop.security.authorization</name>
+  <value>false</value>
+</property>
+
+</configuration>
