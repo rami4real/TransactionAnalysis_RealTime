@@ -58,7 +58,7 @@
 
 Le projet est déployé sur un cluster (1 master et 2 slaves). Pour récupérer les configurations nécessaires :
 ```bash
-git clone https://github.com/<username>/big-data-pipeline.git  
+git clone https://github.com/Dhia-69/TransactionAnalysis_RealTime 
 cd big-data-pipeline
 ```
 
