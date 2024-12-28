@@ -3,7 +3,9 @@
 ---
 ## 📸 Project Overview
 🔍 This academic project implements a Big Data pipeline enabling real-time ingestion, processing, analysis, and visualization of banking transaction data.
+
 ![Dashboard](images/final_dash.png)
+
 ### Key Technologies:
 - **Kafka** – Real-time ingestion
 - **HDFS (Hadoop)** – Distributed storage
