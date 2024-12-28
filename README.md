@@ -69,3 +69,8 @@ Consult the **"Starting services.txt"** file to run the necessary services.
 ---
 ## 🎥 Video Demo
 🔗 [https://drive.google.com/file/d/154iiTMNqWlyOTbEOYxhQxQMX98fD5USk/view?usp=sharing](#)
+
+## Project by
+<a href="https://github.com/rami4real/TransactionAnalysis_RealTime/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=rami4real/TransactionAnalysis_RealTime" />
+</a>
